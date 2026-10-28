@@ -15,18 +15,33 @@ export async function POST(req: Request) {
       analysis_type === "dataset_blueprint" ||
       /\b(?:data|dataset|monthwise|monthly|time[- ]series|from\s+\w+\s+\d{4}\s+to|upi|transactions|records)\b/i.test(query);
 
-    // 1. Fetch real scholarly papers from OpenAlex
-    const searchQuery = isDatasetQuery ? `${query} empirical modeling forecasting` : query;
+    // 1. Extract clean, concise keywords for OpenAlex to avoid slow full-text timeouts
+    let cleanSearch = query
+      .replace(/\b(?:i have|data on|monthwise|monthly|from \w+ \d{4} till \w+ \d{4}|from|till|to|suggest|techniques|for|playing|with|the|data|correlation|parameters|and|paper|blueprints|journal|publication|please|tell me|what can i do|prepare|a|an)\b/gi, " ")
+      .replace(/[^\w\s]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    if (!cleanSearch || cleanSearch.length < 3) {
+      cleanSearch = isDatasetQuery ? "UPI payment transactions forecasting India" : query.slice(0, 45);
+    } else {
+      cleanSearch = cleanSearch.slice(0, 45);
+    }
+
     const openAlexUrl = `https://api.openalex.org/works?search=${encodeURIComponent(
-      searchQuery
-    )}&filter=from_publication_date:2021-01-01&sort=cited_by_count:desc&per-page=8`;
+      cleanSearch
+    )}&filter=from_publication_date:2021-01-01&sort=cited_by_count:desc&per-page=6`;
 
     let scholarlyPapers: any[] = [];
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2500); // Strict 2.5s timeout
+
     try {
       const resp = await fetch(openAlexUrl, {
         headers: { "User-Agent": "ResearchMate-AI/1.0 (academic-evaluator)" },
-        next: { revalidate: 3600 },
+        signal: controller.signal,
       });
+      clearTimeout(timeoutId);
 
       if (resp.ok) {
         const data = await resp.json();
@@ -55,7 +70,9 @@ export async function POST(req: Request) {
           });
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      clearTimeout(timeoutId);
+    }
 
     // Fallback verified papers if network unreachable
     if (scholarlyPapers.length === 0) {

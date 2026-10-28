@@ -70,9 +70,13 @@ export const ResearchAdvisorView: React.FC<ResearchAdvisorViewProps> = ({ onNavi
       if (res.ok) {
         const data = await res.json();
         setResult(data);
+      } else {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || `Server responded with ${res.status}`);
       }
-    } catch (e) {
-      alert("Failed to evaluate research query");
+    } catch (e: any) {
+      console.error("Evaluation error:", e);
+      alert(`Unable to evaluate query: ${e.message || "Network request failed"}. Please retry.`);
     } finally {
       setLoading(false);
     }

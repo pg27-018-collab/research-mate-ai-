@@ -10,12 +10,15 @@ export async function POST(req: Request) {
     )}&filter=from_publication_date:${start_year}-01-01,to_publication_date:${end_year}-12-31&sort=relevance_score:desc&per-page=${limit}`;
 
     let results: any[] = [];
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2500);
 
     try {
       const resp = await fetch(openAlexUrl, {
         headers: { "User-Agent": "ResearchMate-AI/1.0 (academic-verification)" },
-        next: { revalidate: 3600 }
+        signal: controller.signal,
       });
+      clearTimeout(timeoutId);
 
       if (resp.ok) {
         const data = await resp.json();
