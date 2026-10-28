@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { serverProjects, serverSavedSources } from "@/lib/serverStore";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const totalProjects = serverProjects.length;
   let totalIssues = 0;

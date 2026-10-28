@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: Request) {
   try {
     const { journal_name } = await req.json();
@@ -7,7 +9,10 @@ export async function POST(req: Request) {
 
     try {
       const url = `https://api.openalex.org/sources?search=${encodeURIComponent(query)}`;
-      const resp = await fetch(url);
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 2500);
+      const resp = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeoutId);
       if (resp.ok) {
         const data = await resp.json();
         const results = data.results || [];

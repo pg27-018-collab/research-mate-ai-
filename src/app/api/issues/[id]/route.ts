@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { serverProjects } from "@/lib/serverStore";
 
+export const dynamic = "force-dynamic";
+
 export async function PATCH(req: Request, { params }: { params: { id: string } }) {
   const issueId = parseInt(params.id);
   const data = await req.json();

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { serverProjects } from "@/lib/serverStore";
 
+export const dynamic = "force-dynamic";
+
 // Pure TypeScript academic text extractor & citation auditor for serverless execution
 function extractTextFromBuffer(buffer: ArrayBuffer, filename: string): string {
   const decoder = new TextDecoder("utf-8", { fatal: false });

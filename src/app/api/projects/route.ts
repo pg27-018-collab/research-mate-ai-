@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { serverProjects, ServerProject } from "@/lib/serverStore";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const summaries = serverProjects.map((p) => ({
     id: p.id,

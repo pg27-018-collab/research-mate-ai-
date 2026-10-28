@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { serverProjects } from "@/lib/serverStore";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: Request, { params }: { params: { id: string } }) {
   const id = parseInt(params.id);
   const project = serverProjects.find((p) => p.id === id);

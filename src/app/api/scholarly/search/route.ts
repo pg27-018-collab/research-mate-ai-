@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: Request) {
   try {
     const { query, start_year = 2020, end_year = 2026, limit = 10 } = await req.json();
