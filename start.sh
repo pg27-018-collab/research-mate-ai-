@@ -20,5 +20,5 @@ trap "echo 'Stopping ResearchMate AI...'; kill $BACKEND_PID; exit" INT TERM EXIT
 
 # 2. Start Next.js Frontend
 echo "Starting Next.js Frontend on http://localhost:3000..."
-cd "$ROOT_DIR/frontend"
+cd "$ROOT_DIR"
 npm run dev
