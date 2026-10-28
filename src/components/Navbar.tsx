@@ -22,6 +22,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
     { id: "auditor", label: "Citation Auditor", icon: FileSearch, badge: "Mode A" },
     { id: "review", label: "Literature Review", icon: BookOpen, badge: "Mode B" },
+    { id: "advisor", label: "Publishability AI", icon: Sparkles, badge: "New" },
     { id: "projects", label: "My Projects", icon: FolderKanban },
     { id: "sources", label: "Saved Sources", icon: BookmarkCheck },
     { id: "export", label: "Export Center", icon: Download },

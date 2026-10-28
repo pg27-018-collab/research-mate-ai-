@@ -5,6 +5,7 @@ import { Navbar } from "../components/Navbar";
 import { DashboardView } from "../components/DashboardView";
 import { CitationAuditorView } from "../components/CitationAuditorView";
 import { LiteratureReviewView } from "../components/LiteratureReviewView";
+import { ResearchAdvisorView } from "../components/ResearchAdvisorView";
 import { ProjectsView } from "../components/ProjectsView";
 import { SavedSourcesView } from "../components/SavedSourcesView";
 import { ExportCenterView } from "../components/ExportCenterView";
@@ -45,6 +46,8 @@ export default function Home() {
             }}
           />
         )}
+
+        {currentTab === "advisor" && <ResearchAdvisorView />}
 
         {currentTab === "projects" && (
           <ProjectsView onOpenProject={handleNavigate} />
