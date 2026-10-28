@@ -10,6 +10,7 @@ import {
   Settings,
   LayoutDashboard,
   Sparkles,
+  Search,
 } from "lucide-react";
 
 interface NavbarProps {
@@ -20,9 +21,10 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => {
   const navItems = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { id: "search", label: "AI Search", icon: Search, badge: "Ask AI" },
     { id: "auditor", label: "Citation Auditor", icon: FileSearch, badge: "Mode A" },
     { id: "review", label: "Literature Review", icon: BookOpen, badge: "Mode B" },
-    { id: "advisor", label: "Publishability AI", icon: Sparkles, badge: "New" },
+    { id: "advisor", label: "Publishability AI", icon: Sparkles },
     { id: "projects", label: "My Projects", icon: FolderKanban },
     { id: "sources", label: "Saved Sources", icon: BookmarkCheck },
     { id: "export", label: "Export Center", icon: Download },

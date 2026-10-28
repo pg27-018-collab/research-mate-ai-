@@ -92,11 +92,18 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
               <span>Generate Literature Review</span>
             </button>
             <button
+              onClick={() => onNavigate("search")}
+              className="px-4 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-lg text-xs font-bold shadow-sm transition flex items-center space-x-2"
+            >
+              <Search className="w-4 h-4 text-purple-200" />
+              <span>AI Research Search</span>
+            </button>
+            <button
               onClick={() => onNavigate("advisor")}
               className="px-4 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-lg text-xs font-bold shadow-sm transition flex items-center space-x-2"
             >
               <Sparkles className="w-4 h-4 text-emerald-200" />
-              <span>Topic & Publishability AI</span>
+              <span>Publishability & Blueprints</span>
             </button>
           </div>
         </div>

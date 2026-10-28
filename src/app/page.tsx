@@ -6,6 +6,7 @@ import { DashboardView } from "../components/DashboardView";
 import { CitationAuditorView } from "../components/CitationAuditorView";
 import { LiteratureReviewView } from "../components/LiteratureReviewView";
 import { ResearchAdvisorView } from "../components/ResearchAdvisorView";
+import { ResearchSearchView } from "../components/ResearchSearchView";
 import { ProjectsView } from "../components/ProjectsView";
 import { SavedSourcesView } from "../components/SavedSourcesView";
 import { ExportCenterView } from "../components/ExportCenterView";
@@ -29,6 +30,10 @@ export default function Home() {
       <main className="flex-1 overflow-auto">
         {currentTab === "dashboard" && (
           <DashboardView onNavigate={handleNavigate} />
+        )}
+
+        {currentTab === "search" && (
+          <ResearchSearchView onNavigate={handleNavigate} />
         )}
 
         {currentTab === "auditor" && (
