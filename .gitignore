@@ -1,0 +1,25 @@
+# Python & Backend
+backend/venv/
+backend/__pycache__/
+backend/*/__pycache__/
+backend/*.pyc
+backend/*.db
+backend/.pytest_cache/
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/exports/*
+!backend/exports/.gitkeep
+
+# Node & Frontend
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
+
+# OS & Logs
+.DS_Store
+*.log
+.env
+.env.local
