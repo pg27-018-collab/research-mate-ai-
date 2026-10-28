@@ -47,7 +47,9 @@ export default function Home() {
           />
         )}
 
-        {currentTab === "advisor" && <ResearchAdvisorView />}
+        {currentTab === "advisor" && (
+          <ResearchAdvisorView onNavigate={handleNavigate} />
+        )}
 
         {currentTab === "projects" && (
           <ProjectsView onOpenProject={handleNavigate} />
