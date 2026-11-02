@@ -26,7 +26,7 @@ interface ResearchSearchViewProps {
 
 export const ResearchSearchView: React.FC<ResearchSearchViewProps> = ({ onNavigate }) => {
   const [query, setQuery] = useState(
-    "Kya is topic pr research work hai: Offline UPI payments using NFC and soundboxes in rural areas"
+    "Kya is topic pr research work hai: Empirical evaluation of automated citation auditing engines vs manual proofreading in Journal of Informetrics?"
   );
   const [loading, setLoading] = useState(false);
   const [searchResult, setSearchResult] = useState<any>(null);
@@ -109,10 +109,10 @@ export const ResearchSearchView: React.FC<ResearchSearchViewProps> = ({ onNaviga
   };
 
   const sampleQueries = [
-    "Kya is topic pr research work hai: Offline UPI payments via NFC in rural India?",
-    "Has anyone researched battery degradation in EVs using Physics-Informed Neural Networks?",
-    "Can I publish a paper correlating monthwise UPI velocity with retail inflation?",
-    "What are the unresolved research gaps in explainable AI for cancer radiology?",
+    "Kya is topic pr research work hai: Automated citation auditing engines in Computer Science & Informetrics?",
+    "Can I publish a paper evaluating precision, recall, and false positive rates of reference verification?",
+    "What are the unresolved research gaps in automated citation discrepancy detection?",
+    "Has anyone benchmarked LLM-based reference verification against manual proofreading on 50,000 papers?",
   ];
 
   return (

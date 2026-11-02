@@ -36,10 +36,10 @@ export const ResearchAdvisorView: React.FC<ResearchAdvisorViewProps> = ({ onNavi
 
   // Query states
   const [datasetQuery, setDatasetQuery] = useState(
-    "I have monthwise data on UPI from April 2020 till Sep 2026. Suggest techniques for playing with the data, correlation parameters, and paper blueprints for journal publication."
+    "I have a benchmark corpus of 50,000 peer-reviewed Computer Science & Informetrics manuscripts from 2020 to 2026 with 1.2M citation pairs and ground-truth reference auditing annotations. Suggest empirical evaluation techniques (precision/recall/F1, human-algorithmic agreement, confusion matrix), correlation parameters (PDF layout complexity, OCR noise, style variance), and ready-to-publish paper blueprints for Journal of Informetrics or Scientometrics."
   );
   const [topicQuery, setTopicQuery] = useState(
-    "Automated Citation Auditing and Scholarly Verification in Academic Manuscripts Using Large Language Models"
+    "Empirical Evaluation of Automated Citation Auditing and Scholarly Verification in Computer Science & Informetrics"
   );
 
   const [loading, setLoading] = useState(false);
@@ -173,7 +173,7 @@ export const ResearchAdvisorView: React.FC<ResearchAdvisorViewProps> = ({ onNavi
             <div>
               <h4 className="text-xs font-bold text-white">Empirical Dataset to Paper Blueprint</h4>
               <p className="text-[11px] text-slate-300 mt-0.5">
-                Monthwise time-series data (e.g. UPI 2020–2026) -> Techniques, correlations & blueprints.
+                Benchmark corpus (50k CS papers &amp; 1.2M citations) -&gt; Evaluation metrics, correlations &amp; blueprints.
               </p>
             </div>
           </button>
@@ -199,7 +199,7 @@ export const ResearchAdvisorView: React.FC<ResearchAdvisorViewProps> = ({ onNavi
             <div>
               <h4 className="text-xs font-bold text-white">Scopus Lit Review & Publishability</h4>
               <p className="text-[11px] text-slate-300 mt-0.5">
-                Propose title for Scopus A journal -> &ge; 3 sections, post-2020 verifiable works.
+                Propose title for Scopus A journal -&gt; &ge; 3 sections, post-2020 verifiable works.
               </p>
             </div>
           </button>
@@ -243,7 +243,7 @@ export const ResearchAdvisorView: React.FC<ResearchAdvisorViewProps> = ({ onNavi
                 rows={2}
                 value={datasetQuery}
                 onChange={(e) => setDatasetQuery(e.target.value)}
-                placeholder="E.g., I have monthwise data on UPI from April 2020 till Sep 2026. Suggest techniques for playing with the data and parameters for correlation..."
+                placeholder="E.g., I have a benchmark corpus of 50,000 peer-reviewed CS & Informetrics manuscripts from 2020 to 2026. Suggest empirical evaluation techniques and correlation parameters..."
                 className="flex-1 p-3 bg-white text-slate-900 rounded-xl text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-400 font-medium resize-none"
               />
               <button
@@ -258,26 +258,26 @@ export const ResearchAdvisorView: React.FC<ResearchAdvisorViewProps> = ({ onNavi
 
             {/* Quick Presets for Example 3 */}
             <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-              <span className="text-slate-400 text-[11px] font-medium">Quick Example Datasets:</span>
+              <span className="text-slate-400 text-[11px] font-medium">Quick Informetrics Benchmarks:</span>
               <button
                 onClick={() => {
-                  const q = "I have monthwise data on UPI from April 2020 till Sep 2026 of UPI. Do suggest me what can I do with it to prepare for a journal paper publication. a) Suggest techniques for playing with the data b) suggest parameters on which I can draw correlation with this set of data";
+                  const q = "I have a benchmark corpus of 50,000 peer-reviewed Computer Science & Informetrics manuscripts from 2020 to 2026 with 1.2M citation pairs and ground-truth reference auditing annotations. Suggest empirical evaluation techniques (precision/recall/F1, human-algorithmic agreement, confusion matrix), correlation parameters (PDF layout complexity, OCR noise, style variance), and ready-to-publish paper blueprints for Journal of Informetrics or Scientometrics.";
                   setDatasetQuery(q);
                   handleEvaluate(q, "dataset_blueprint");
                 }}
                 className="px-2.5 py-1 rounded-lg bg-blue-500/20 hover:bg-blue-500/30 text-blue-200 border border-blue-400/30 text-[11px] font-semibold transition"
               >
-                Monthwise UPI Data (Apr 2020 - Sep 2026)
+                50,000 CS Manuscripts &amp; 1.2M Citation Benchmark
               </button>
               <button
                 onClick={() => {
-                  const q = "I have quarterly ESG disclosure scores and corporate bond spread volatility data for 500 firms from 2020 to 2025. Suggest empirical modeling techniques and macroeconomic correlation parameters for a Scopus Q1 paper.";
+                  const q = "I have 1,000,000 extracted citation pairs cross-referenced against Crossref and OpenAlex APIs with labeled citation discrepancies (missing references, uncited bibliography, author misspellings). Suggest statistical modeling and publication blueprints for Scientometrics.";
                   setDatasetQuery(q);
                   handleEvaluate(q, "dataset_blueprint");
                 }}
                 className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 border border-white/10 text-[11px] font-medium transition"
               >
-                Quarterly ESG & Bond Spreads (2020–2025)
+                1M Crossref &amp; OpenAlex Citation Discrepancies
               </button>
             </div>
           </div>
@@ -304,6 +304,31 @@ export const ResearchAdvisorView: React.FC<ResearchAdvisorViewProps> = ({ onNavi
               >
                 <Sparkles className="w-4 h-4" />
                 <span>{loading ? "Analyzing..." : "Evaluate Title"}</span>
+              </button>
+            </div>
+
+            {/* Quick Presets for Example 2 */}
+            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+              <span className="text-slate-400 text-[11px] font-medium">Quick Informetrics Titles:</span>
+              <button
+                onClick={() => {
+                  const q = "Empirical Evaluation of Automated Citation Auditing and Scholarly Verification in Computer Science & Informetrics";
+                  setTopicQuery(q);
+                  handleEvaluate(q, "topic_evaluation");
+                }}
+                className="px-2.5 py-1 rounded-lg bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 text-[11px] font-semibold transition"
+              >
+                Empirical Evaluation of Automated Citation Auditing
+              </button>
+              <button
+                onClick={() => {
+                  const q = "Algorithmic Author Disambiguation and Reference Extraction Integrity Across OpenAlex and Crossref";
+                  setTopicQuery(q);
+                  handleEvaluate(q, "topic_evaluation");
+                }}
+                className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 border border-white/10 text-[11px] font-medium transition"
+              >
+                Algorithmic Reference Integrity in OpenAlex
               </button>
             </div>
 

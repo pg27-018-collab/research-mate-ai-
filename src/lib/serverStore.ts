@@ -174,10 +174,10 @@ References
   },
   {
     id: 2,
-    title: "Retrieval-Augmented Generation for Scientific Hypothesis Formulation",
+    title: "Empirical Evaluation of Automated Citation Auditing and Scholarly Verification",
     mode: "literature_review",
     status: "completed",
-    target_journal: "Nature Artificial Intelligence",
+    target_journal: "Journal of Informetrics",
     citation_style: "APA 7th",
     created_at: new Date(Date.now() - 43200000).toISOString(),
     has_document: false,
@@ -186,51 +186,57 @@ References
     has_review: true,
     review: {
       id: 2,
-      title: "Retrieval-Augmented Generation for Scientific Hypothesis Formulation",
-      domain: "Artificial Intelligence & Computer Science",
-      target_journal: "Nature Artificial Intelligence",
+      title: "Empirical Evaluation of Automated Citation Auditing and Scholarly Verification",
+      domain: "Computer Science & Informetrics",
+      target_journal: "Journal of Informetrics",
       citation_style: "APA 7th",
-      word_count: 580,
+      word_count: 640,
       created_at: new Date().toISOString(),
       disclaimer: "Academic Integrity Note: This structured literature review synthesizes verified publications and must be critically reviewed and validated by the primary author prior to formal manuscript submission.",
       sections: [
         {
           section_number: 1,
-          title: "Theoretical Foundations of Retrieval-Augmented Scientific Reasoning",
-          content: "The emergence of Retrieval-Augmented Generation (RAG) marks a pivotal paradigm shift in automated literature synthesis. Vaswani et al. (2021) established the computational foundation of self-attention architectures, demonstrating that global cross-attention mechanisms efficiently encode intricate dependency graphs. In scientific contexts, however, static parameter weights suffer from catastrophic hallucination when exposed to fine-grained empirical data. Gao et al. (2024) formulated an integrated retrieval-generation framework that dynamically grounds inference by pulling verified external vectors from indexed scientific corpora.",
-          sources_cited: ["Attention Is All You Need", "A Survey on Retrieval-Augmented Generation"]
+          title: "Theoretical Foundations of Automated Reference Extraction and Bibliometric Graph Topology",
+          content: "The theoretical framing of automated citation auditing traces back to foundational scientometric and information retrieval paradigms. Early algorithmic parsers conceptualized bibliographic entries as isolated string sequences processed via regular expressions. In a seminal contribution, Martinez (2022) established that citation graph distortion propagates exponentially when latent reference defects remain uncorrected at the publisher level. Their empirical findings across 12,000 papers in Journal of Informetrics proved that manual editorial proofreading misses over 38% of author-year and broken DOI discrepancies. Integrating deterministic heuristics with modern contextual embeddings resolves non-linear boundary constraints, substantially elevating representation fidelity.",
+          sources_cited: ["Citation Inconsistencies and Referencing Accuracy in Contemporary Academic Publishing", "Natural Language Architectures in Bibliometrics"]
         },
         {
           section_number: 2,
-          title: "Contemporary Empirical Evidence and Comparative Benchmarks",
-          content: "Recent empirical studies published between 2022 and 2025 validate that dynamic retrieval markedly mitigates factual degradation across biomedical and mathematical benchmarks. Wang et al. (2023) evaluated generative models across 1,200 scientific discovery pipelines, reporting a 37% improvement in bibliographic precision when hybrid dense-sparse retrieval was utilized. Conversely, Sharma et al. (2022) observed that ungrounded models frequently generate plausible-sounding yet completely fabricated digital object identifiers, reinforcing the urgent imperative for automated citation verification prior to manuscript submission.",
-          sources_cited: ["Scientific Discovery in the Age of Generative AI", "Citation Inconsistencies and Referencing Accuracy"]
+          title: "Comparative Empirical Performance: Automated Neural Engines vs Manual Human Auditing",
+          content: "Recent peer-reviewed literature published between 2021 and 2025 provides robust quantitative comparisons addressing our core research objective: How do automated verification engines compare against manual bibliometric auditing in terms of precision, recall, and false positive rates? As demonstrated by Brown & Taylor (2023) in Quantitative Science Studies, automated rule-based engines achieve high precision (0.94) on standard single-author entries but suffer severe recall degradation (0.68) when encountering complex consortium abbreviations and transliterated non-Latin surnames. Conversely, manual proofreading maintains stable recall but introduces an unacceptable false positive rate (14.2%) due to fatigue and formatting ambiguities. Hybrid verification architectures combine the rapid deterministic matching of Crossref/OpenAlex registries with neural disambiguation, achieving a macro-F1 of 0.91.",
+          sources_cited: ["Collaborative Multi-Author Citation Patterns in Computational Sciences", "Systematic Evaluation of Open Scholarly Metadata"]
         },
         {
           section_number: 3,
-          title: "Methodological Divergence, Conflicting Findings, and Research Limitations",
-          content: "Despite promising empirical results, existing literature exhibits non-trivial methodological divergence regarding optimal chunking strategies and semantic reranking. Visser et al. (2021) demonstrated that open metadata providers (Crossref, OpenAlex) differ substantially in coverage depth and citation linkage latency compared to proprietary databases like Scopus. Consequently, systems trained exclusively on single-provider indexes risk systematic coverage bias, particularly across non-English and regional scholarly journals.",
-          sources_cited: ["Systematic Evaluation of Open Scholarly Metadata"]
+          title: "Error Boundary Divergence: Hallucinated DOIs, Consortium Misattribution, and PDF Layout Noise",
+          content: "A critical review of contemporary bibliometric methodologies reveals pronounced performance divergence when evaluating raw camera-ready PDF manuscripts versus pre-parsed XML corpuses. While text extractors report near-perfect accuracy under synthetic conditions, multi-column layouts, footnote citations, and mathematical symbol collisions cause severe boundary clipping. Furthermore, generative AI tools frequently introduce hallucinated digital object identifiers that mimic legitimate Crossref schemas. Reconciling these multi-registry discrepancies and establishing reproducible benchmarking protocols remains the primary prerequisite for editorial adoption in high-impact venues such as Journal of Informetrics.",
+          sources_cited: ["Neglected Scholarly Work in Contemporary Bibliometric Indexes", "Malformed Identifiers in Open Access Repositories"]
         }
       ],
       research_gaps: [
         {
-          gap_title: "Lack of Multi-Repository Disambiguation Benchmarks",
-          description: "Current literature predominantly evaluates retrieval accuracy on isolated datasets rather than federated multi-registry environments.",
-          supporting_evidence: "Demonstrated across Visser et al. (2021) and Gao et al. (2024)."
+          gap_title: "Absence of Standardized Multi-Corpus Benchmarks for Citation Defect Detection",
+          description: "Current literature evaluates citation auditing tools on closed publisher datasets or isolated synthetic samples rather than open, reproducible multi-publisher corpuses.",
+          supporting_evidence: "Identified as a critical bottleneck in Martinez (2022) and Brown & Taylor (2023)."
         },
         {
-          gap_title: "Absence of Longitudinal Tracking for Outdated Scholarly Claims",
-          description: "Generative models lack temporal decay mechanisms to deprecate retracted or obsolete scientific claims automatically.",
-          supporting_evidence: "Highlighted as a critical bottleneck in Wang et al. (2023)."
+          gap_title: "Lack of Stress-Testing Under Real-World PDF Layout Noise and OCR Inaccuracies",
+          description: "Existing verification models assume clean text input, failing to quantify error propagation from multi-column PDF layouts, floating figures, and varied publisher styles.",
+          supporting_evidence: "Highlighted by Visser et al. (2021) in Quantitative Science Studies."
+        },
+        {
+          gap_title: "Vulnerability to LLM-Generated Hallucinated DOIs in Modern Submissions",
+          description: "Traditional bibliometric audit pipelines lack real-time Crossref/OpenAlex cryptographic and landing-page validation to flag synthetically fabricated citations.",
+          supporting_evidence: "Unresolved challenge in post-2023 scientific publishing workflows."
         }
       ],
       references: [
-        "Gao, Y., Xiong, Y., Gao, X., Jia, K., & Pan, J. (2024). A Survey on Retrieval-Augmented Generation for Large Language Models. IEEE Transactions on Knowledge and Data Engineering. https://doi.org/10.1109/TKDE.2024.3364789",
-        "Sharma, P., Martinez, R., & Henderson, C. (2022). Citation Inconsistencies and Referencing Accuracy in Contemporary Academic Publishing. Journal of Informetrics. https://doi.org/10.1016/j.joi.2022.101284",
-        "Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., & Jones, L. (2021). Attention Is All You Need: Architectural Advancements. Advances in Neural Information Processing Systems. https://doi.org/10.5555/3295222.3295349",
-        "Visser, M., van Eck, N. J., & Waltman, L. (2021). Systematic Evaluation of Open Scholarly Metadata: Crossref, OpenAlex, and Scopus Comparison. Quantitative Science Studies. https://doi.org/10.1162/qss_a_00112",
-        "Wang, H., Fu, T., Du, Y., Gao, W., & Huang, K. (2023). Scientific Discovery in the Age of Generative AI: Opportunities and Methodological Challenges. Nature Artificial Intelligence. https://doi.org/10.1038/s42256-023-00712-4"
+        "Brown, K., & Taylor, S. (2023). Collaborative multi-author citation patterns in computational sciences. Quantitative Science Studies, 4(1), 112–134. https://doi.org/10.1162/qss_a_00112",
+        "Gao, Y., Xiong, Y., Gao, X., Jia, K., & Pan, J. (2024). A Survey on Retrieval-Augmented Generation for Large Language Models. IEEE Transactions on Knowledge and Data Engineering, 36(5), 2104–2122. https://doi.org/10.1109/TKDE.2024.3364789",
+        "Martinez, R. (2022). Longitudinal analysis of citation inaccuracies in scholarly publishing. Journal of Informetrics, 16(2), 101284. https://doi.org/10.1016/j.joi.2022.101284",
+        "Smith, J. (2021). Natural language architectures in bibliometrics: A systematic review. Artificial Intelligence Review, 54(3), 1989–2018. https://doi.org/10.1007/s10462-021-09999-x",
+        "Vaswani, A., & Shazeer, N. (2021). Attention mechanisms in deep neural networks. Advances in Neural Information Processing Systems, 30, 5998–6008. https://doi.org/10.5555/3295222.3295349",
+        "Visser, M., van Eck, N. J., & Waltman, L. (2021). Systematic Evaluation of Open Scholarly Metadata: Crossref, OpenAlex, and Scopus Comparison. Quantitative Science Studies, 2(1), 27–40. https://doi.org/10.1162/qss_a_00112"
       ]
     }
   }
@@ -239,32 +245,47 @@ References
 export const serverSavedSources: any[] = [
   {
     id: 1,
-    title: "Attention Is All You Need: Architectural Advancements and Large Language Models",
-    authors: "Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L.",
-    year: 2021,
-    journal: "Advances in Neural Information Processing Systems",
-    doi: "10.5555/3295222.3295349",
-    url: "https://doi.org/10.5555/3295222.3295349",
-    citation_count: 89450,
-    citation_source: "OpenAlex",
-    abstract: "The dominant sequence transduction models are based on complex recurrent or convolutional neural networks. We propose the Transformer, an architecture eschewing recurrence and entirely relying on an attention mechanism to draw global dependencies between input and output.",
+    title: "Longitudinal analysis of citation inaccuracies in scholarly publishing",
+    authors: "Martinez, R., & Henderson, C.",
+    year: 2022,
+    journal: "Journal of Informetrics",
+    doi: "10.1016/j.joi.2022.101284",
+    url: "https://doi.org/10.1016/j.joi.2022.101284",
+    citation_count: 142,
+    citation_source: "OpenAlex Verified",
+    abstract: "In this longitudinal empirical study across 12,000 papers, we quantify the prevalence of missing references, uncited entries, and author name mismatches, showing that over 38% of published articles contain latent referencing discrepancies.",
     verification_status: "verified",
-    relevance_score: 0.95,
+    relevance_score: 0.98,
     quartile: "Q1"
   },
   {
     id: 2,
-    title: "A Survey on Retrieval-Augmented Generation for Large Language Models",
-    authors: "Gao, Y., Xiong, Y., Gao, X., Jia, K., Pan, J.",
-    year: 2024,
-    journal: "IEEE Transactions on Knowledge and Data Engineering",
-    doi: "10.1109/TKDE.2024.3364789",
-    url: "https://doi.org/10.1109/TKDE.2024.3364789",
-    citation_count: 412,
-    citation_source: "OpenAlex",
-    abstract: "Large Language Models (LLMs) have demonstrated impressive capabilities but suffer from hallucinations and outdated domain knowledge.",
+    title: "Collaborative multi-author citation patterns in computational sciences",
+    authors: "Brown, K., & Taylor, S.",
+    year: 2023,
+    journal: "Quantitative Science Studies",
+    doi: "10.1162/qss_a_00112",
+    url: "https://doi.org/10.1162/qss_a_00112",
+    citation_count: 88,
+    citation_source: "OpenAlex Verified",
+    abstract: "Examines consortium referencing ambiguities and evaluates automated parser degradation when handling complex 'et al.' constructs and institutional affiliations.",
     verification_status: "verified",
-    relevance_score: 0.92,
+    relevance_score: 0.94,
+    quartile: "Q1"
+  },
+  {
+    id: 3,
+    title: "Systematic Evaluation of Open Scholarly Metadata: Crossref, OpenAlex, and Scopus Comparison",
+    authors: "Visser, M., van Eck, N. J., & Waltman, L.",
+    year: 2021,
+    journal: "Quantitative Science Studies",
+    doi: "10.1162/qss_a_00112",
+    url: "https://doi.org/10.1162/qss_a_00112",
+    citation_count: 310,
+    citation_source: "OpenAlex Verified",
+    abstract: "Comprehensive bibliometric comparison demonstrating coverage depth, citation linkage latency, and DOI provenance across major open metadata providers.",
+    verification_status: "verified",
+    relevance_score: 0.96,
     quartile: "Q1"
   }
 ];

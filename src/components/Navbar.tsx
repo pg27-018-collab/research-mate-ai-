@@ -50,7 +50,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
                   AI
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 font-medium">Academic Citation Auditor & Literature Review</p>
+              <p className="text-[11px] text-slate-500 font-medium">Computer Science &amp; Informetrics | Citation Auditing</p>
             </div>
           </div>
 

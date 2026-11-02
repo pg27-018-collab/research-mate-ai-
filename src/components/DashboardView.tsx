@@ -66,14 +66,13 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
         <div className="relative z-10 max-w-2xl space-y-3">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-semibold text-blue-200 border border-white/10">
             <Sparkles className="w-3.5 h-3.5 text-blue-300" />
-            <span>ResearchMate AI Academic Verification Engine</span>
+            <span>Computer Science &amp; Informetrics Research Suite</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-            Academic Referencing Integrity & Literature Review Platform
+            Automated Citation Auditing &amp; Scholarly Verification Platform
           </h1>
           <p className="text-sm text-slate-300 leading-relaxed">
-            Audit existing research manuscripts for citation defects, missing references, and inconsistent formatting.
-            Synthesize traceable, post-2020 literature reviews with verified OpenAlex & Crossref bibliographic provenance.
+            Empirical evaluation and reference integrity engine for academic manuscripts targeting <strong>Journal of Informetrics</strong> (Elsevier, Scopus Q1) and <strong>Scientometrics</strong>. Audit manuscripts for uncited references and broken DOIs, synthesize 3-section literature reviews, and generate publication blueprints.
           </p>
 
           <div className="pt-2 flex flex-wrap gap-3">
@@ -173,7 +172,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
               type="text"
               value={journalQuery}
               onChange={(e) => setJournalQuery(e.target.value)}
-              placeholder="e.g. Nature Machine Intelligence or 2522-5839"
+              placeholder="e.g. Journal of Informetrics or 1751-1577"
               className="flex-1 text-xs border border-slate-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500"
             />
             <button
@@ -184,6 +183,43 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
               {checkingJournal ? "Checking..." : "Inspect"}
             </button>
           </form>
+
+          {/* Quick Journal Preset Buttons */}
+          <div className="flex flex-wrap gap-1.5 text-[11px]">
+            <span className="text-slate-400 font-medium">Quick Inspect:</span>
+            <button
+              type="button"
+              onClick={async () => {
+                setJournalQuery("Journal of Informetrics");
+                setCheckingJournal(true);
+                try {
+                  const res = await inspectJournalScopus("Journal of Informetrics");
+                  setJournalResult(res);
+                } finally {
+                  setCheckingJournal(false);
+                }
+              }}
+              className="px-2 py-0.5 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded border border-blue-200 font-medium transition"
+            >
+              Journal of Informetrics
+            </button>
+            <button
+              type="button"
+              onClick={async () => {
+                setJournalQuery("Scientometrics");
+                setCheckingJournal(true);
+                try {
+                  const res = await inspectJournalScopus("Scientometrics");
+                  setJournalResult(res);
+                } finally {
+                  setCheckingJournal(false);
+                }
+              }}
+              className="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded border border-slate-200 font-medium transition"
+            >
+              Scientometrics
+            </button>
+          </div>
 
           {journalResult && (
             <div className="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-2 text-xs">

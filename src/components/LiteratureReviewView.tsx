@@ -26,14 +26,17 @@ import {
   bridgeReviewToAuditor,
   inspectJournalScopus,
   getExportUrl,
-  saveSource
+  saveSource,
+  fetchProjectDetails
 } from "../lib/api";
 
 interface LiteratureReviewViewProps {
+  initialProjectId?: number | null;
   onNavigateToAuditor?: (projectId: number) => void;
 }
 
 export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
+  initialProjectId,
   onNavigateToAuditor,
 }) => {
   // Form State
@@ -60,6 +63,28 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
   const [generatedReview, setGeneratedReview] = useState<LiteratureReviewData | null>(null);
   const [createdProjectId, setCreatedProjectId] = useState<number | null>(null);
   const [statusMessage, setStatusMessage] = useState("");
+
+  useEffect(() => {
+    const loadDefaultReview = async () => {
+      try {
+        const targetId = initialProjectId || 2;
+        const data = await fetchProjectDetails(targetId);
+        if (data && data.review) {
+          setGeneratedReview(data.review);
+          setCreatedProjectId(data.id);
+          if (data.title) setTitle(data.title);
+          if (data.target_journal) setTargetJournal(data.target_journal);
+          if (data.citation_style) setCitationStyle(data.citation_style);
+          if (data.review.sources_used && data.review.sources_used.length > 0) {
+            setDiscoveredSources(data.review.sources_used);
+          }
+        }
+      } catch (e) {
+        // Fallback gracefully
+      }
+    };
+    loadDefaultReview();
+  }, [initialProjectId]);
 
   const handleInspectJournal = async () => {
     if (!targetJournal.trim()) return;

@@ -47,6 +47,7 @@ export default function Home() {
 
         {currentTab === "review" && (
           <LiteratureReviewView
+            initialProjectId={activeProjectId}
             onNavigateToAuditor={(projId) => {
               setActiveProjectId(projId);
               setCurrentTab("auditor");
