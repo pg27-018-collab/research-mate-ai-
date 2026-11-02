@@ -4,58 +4,91 @@ import React from "react";
 import {
   FileSearch,
   BookOpen,
-  FolderKanban,
-  BookmarkCheck,
-  Download,
-  Settings,
-  LayoutDashboard,
   Sparkles,
   Search,
+  BookmarkCheck,
+  ShieldCheck,
+  Layers
 } from "lucide-react";
 
 interface NavbarProps {
   currentTab: string;
   setCurrentTab: (tab: string) => void;
+  savedSourcesCount?: number;
+  onOpenSavedSources?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  currentTab,
+  setCurrentTab,
+  savedSourcesCount = 0,
+  onOpenSavedSources,
+}) => {
+  // Only the 4 essential "new update" workflows requested by the user
   const navItems = [
-    { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { id: "search", label: "AI Search", icon: Search, badge: "Ask AI" },
-    { id: "auditor", label: "Citation Auditor", icon: FileSearch, badge: "Mode A" },
-    { id: "review", label: "Literature Review", icon: BookOpen, badge: "Mode B" },
-    { id: "advisor", label: "Publishability AI", icon: Sparkles },
-    { id: "projects", label: "My Projects", icon: FolderKanban },
-    { id: "sources", label: "Saved Sources", icon: BookmarkCheck },
-    { id: "export", label: "Export Center", icon: Download },
-    { id: "settings", label: "Settings", icon: Settings },
+    {
+      id: "search",
+      label: "AI Research Search",
+      shortLabel: "AI Search",
+      icon: Search,
+      badge: "Ask AI",
+      color: "from-blue-600 to-indigo-600",
+    },
+    {
+      id: "auditor",
+      label: "Citation Auditor",
+      shortLabel: "Auditor",
+      icon: FileSearch,
+      badge: "Mode A",
+      color: "from-purple-600 to-indigo-600",
+    },
+    {
+      id: "review",
+      label: "Literature Review",
+      shortLabel: "Lit Review",
+      icon: BookOpen,
+      badge: "Mode B",
+      color: "from-indigo-600 to-blue-600",
+    },
+    {
+      id: "advisor",
+      label: "Publishability AI",
+      shortLabel: "Advisor",
+      icon: Sparkles,
+      badge: "Blueprint",
+      color: "from-emerald-600 to-teal-600",
+    },
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-xs">
+    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-xs transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Brand */}
           <div
-            className="flex items-center space-x-3 cursor-pointer"
-            onClick={() => setCurrentTab("dashboard")}
+            className="flex items-center space-x-3 cursor-pointer select-none group"
+            onClick={() => setCurrentTab("search")}
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 to-indigo-600 flex items-center justify-center text-white shadow-sm">
-              <Sparkles className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 via-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+              <Sparkles className="w-5 h-5 text-white" />
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <span className="font-bold text-lg text-slate-900 tracking-tight">ResearchMate</span>
-                <span className="text-xs font-semibold px-1.5 py-0.5 bg-blue-50 text-blue-700 rounded border border-blue-200">
-                  AI
+                <span className="font-extrabold text-lg text-slate-900 tracking-tight">
+                  Research<span className="text-indigo-600">Mate</span>
+                </span>
+                <span className="text-[10px] font-bold px-2 py-0.5 bg-gradient-to-r from-indigo-50 to-blue-50 text-indigo-700 rounded-full border border-indigo-200/60 uppercase tracking-wider">
+                  AI Core
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 font-medium">Computer Science &amp; Informetrics | Citation Auditing</p>
+              <p className="text-[11px] text-slate-500 font-medium hidden sm:block">
+                Informetrics &amp; Scholarly Verification Suite
+              </p>
             </div>
           </div>
 
-          {/* Navigation Links */}
-          <nav className="hidden md:flex space-x-1">
+          {/* Segmented Pill Navigation - Clean, Modern & De-cluttered */}
+          <nav className="hidden lg:flex items-center p-1 bg-slate-100/90 rounded-2xl border border-slate-200/70 shadow-inner">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = currentTab === item.id;
@@ -63,20 +96,24 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
                 <button
                   key={item.id}
                   onClick={() => setCurrentTab(item.id)}
-                  className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-sm font-medium transition-all ${
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
                     isActive
-                      ? "bg-blue-50 text-blue-700 border border-blue-200/80 shadow-xs"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80"
+                      ? "bg-white text-indigo-700 shadow-sm border border-slate-200/80 font-bold"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? "text-blue-700" : "text-slate-500"}`} />
+                  <Icon
+                    className={`w-3.5 h-3.5 transition-colors ${
+                      isActive ? "text-indigo-600" : "text-slate-500"
+                    }`}
+                  />
                   <span>{item.label}</span>
                   {item.badge && (
                     <span
-                      className={`text-[10px] px-1.5 py-0.2 rounded font-semibold ${
+                      className={`text-[9px] px-1.5 py-0.5 rounded-md font-bold uppercase tracking-wider ${
                         isActive
-                          ? "bg-blue-200/70 text-blue-800"
-                          : "bg-slate-200/80 text-slate-600"
+                          ? "bg-indigo-100 text-indigo-800"
+                          : "bg-slate-200/70 text-slate-600"
                       }`}
                     >
                       {item.badge}
@@ -87,18 +124,36 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
             })}
           </nav>
 
-          {/* Status Indicator */}
-          <div className="flex items-center space-x-3">
-            <div className="hidden sm:flex items-center space-x-2 px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200 text-xs font-medium">
+          {/* Right Action Elements: Saved Sources & Live Telemetry */}
+          <div className="flex items-center space-x-2.5">
+            {/* Saved Sources Quick Drawer Button */}
+            {onOpenSavedSources && (
+              <button
+                onClick={onOpenSavedSources}
+                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-xs transition"
+                title="View Saved Sources Library"
+              >
+                <BookmarkCheck className="w-3.5 h-3.5 text-blue-600" />
+                <span className="hidden sm:inline">Saved Sources</span>
+                {savedSourcesCount > 0 && (
+                  <span className="px-1.5 py-0.2 rounded-full bg-blue-100 text-blue-700 text-[10px] font-extrabold">
+                    {savedSourcesCount}
+                  </span>
+                )}
+              </button>
+            )}
+
+            {/* Live OpenAlex & Crossref Registry Status */}
+            <div className="hidden md:flex items-center space-x-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-800 rounded-xl border border-emerald-200/80 text-[11px] font-semibold">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>OpenAlex & Crossref Connected</span>
+              <span>OpenAlex &amp; Crossref Live</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Mobile nav bar */}
-      <div className="md:hidden flex overflow-x-auto px-4 py-2 border-t border-slate-100 space-x-2 bg-slate-50">
+      {/* Mobile/Tablet Subnav */}
+      <div className="lg:hidden flex overflow-x-auto px-4 py-2 border-t border-slate-100 space-x-2 bg-slate-50/80">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = currentTab === item.id;
@@ -106,12 +161,23 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, setCurrentTab }) => 
             <button
               key={item.id}
               onClick={() => setCurrentTab(item.id)}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 whitespace-nowrap rounded-md text-xs font-medium ${
-                isActive ? "bg-blue-600 text-white" : "bg-white text-slate-700 border border-slate-200"
+              className={`flex items-center space-x-1.5 px-3 py-1.5 whitespace-nowrap rounded-lg text-xs font-semibold transition ${
+                isActive
+                  ? "bg-indigo-600 text-white shadow-xs"
+                  : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-100"
               }`}
             >
               <Icon className="w-3.5 h-3.5" />
-              <span>{item.label}</span>
+              <span>{item.shortLabel}</span>
+              {item.badge && (
+                <span
+                  className={`text-[9px] px-1 rounded ${
+                    isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600"
+                  }`}
+                >
+                  {item.badge}
+                </span>
+              )}
             </button>
           );
         })}

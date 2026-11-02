@@ -50,6 +50,10 @@ export const ResearchAdvisorView: React.FC<ResearchAdvisorViewProps> = ({ onNavi
   const [queryLoading, setQueryLoading] = useState(false);
   const [conversations, setConversations] = useState<any[]>([]);
 
+  React.useEffect(() => {
+    handleEvaluate(datasetQuery, "dataset_blueprint");
+  }, []);
+
   // Trigger evaluation
   const handleEvaluate = async (customQuery?: string, customType?: "dataset_blueprint" | "topic_evaluation") => {
     const isDataset = (customType ? customType === "dataset_blueprint" : activeMode === "dataset");

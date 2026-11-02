@@ -2,73 +2,89 @@
 
 export const dynamic = "force-dynamic";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar } from "../components/Navbar";
-import { DashboardView } from "../components/DashboardView";
+import { ResearchSearchView } from "../components/ResearchSearchView";
 import { CitationAuditorView } from "../components/CitationAuditorView";
 import { LiteratureReviewView } from "../components/LiteratureReviewView";
 import { ResearchAdvisorView } from "../components/ResearchAdvisorView";
-import { ResearchSearchView } from "../components/ResearchSearchView";
-import { ProjectsView } from "../components/ProjectsView";
-import { SavedSourcesView } from "../components/SavedSourcesView";
-import { ExportCenterView } from "../components/ExportCenterView";
-import { SettingsView } from "../components/SettingsView";
+import { SavedSourcesDrawer } from "../components/SavedSourcesDrawer";
+import { fetchSavedSources } from "../lib/api";
 
 export default function Home() {
-  const [currentTab, setCurrentTab] = useState("dashboard");
+  // Default to the flagship new AI Research Search
+  const [currentTab, setCurrentTab] = useState<"search" | "auditor" | "review" | "advisor">("search");
   const [activeProjectId, setActiveProjectId] = useState<number | null>(null);
+  const [showSavedDrawer, setShowSavedDrawer] = useState(false);
+  const [savedCount, setSavedCount] = useState(0);
+
+  useEffect(() => {
+    // Initial fetch of saved sources count
+    fetchSavedSources()
+      .then((data) => setSavedCount(data.length))
+      .catch(() => {});
+  }, []);
 
   const handleNavigate = (tab: string, projectId?: number) => {
     if (projectId !== undefined) {
       setActiveProjectId(projectId);
     }
-    setCurrentTab(tab);
+    if (tab === "search" || tab === "auditor" || tab === "review" || tab === "advisor") {
+      setCurrentTab(tab);
+    } else {
+      // Fallback any legacy links to search or auditor
+      setCurrentTab("search");
+    }
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
-      <Navbar currentTab={currentTab} setCurrentTab={setCurrentTab} />
+    <div className="min-h-screen bg-slate-50/60 text-slate-900 flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
+      {/* Sleek, Modern Glassmorphism Navbar with Only the 4 Essential Workflows */}
+      <Navbar
+        currentTab={currentTab}
+        setCurrentTab={(tab) => handleNavigate(tab)}
+        savedSourcesCount={savedCount}
+        onOpenSavedSources={() => setShowSavedDrawer(true)}
+      />
 
+      {/* Main Focus Area */}
       <main className="flex-1 overflow-auto">
-        {currentTab === "dashboard" && (
-          <DashboardView onNavigate={handleNavigate} />
-        )}
-
+        {/* 1. AI Research Search Engine (Ask AI) */}
         {currentTab === "search" && (
           <ResearchSearchView onNavigate={handleNavigate} />
         )}
 
+        {/* 2. Citation Auditor (Mode A) */}
         {currentTab === "auditor" && (
           <CitationAuditorView
             initialProjectId={activeProjectId}
-            onNavigateToLitReview={(title) => setCurrentTab("review")}
+            onNavigateToLitReview={() => handleNavigate("review")}
           />
         )}
 
+        {/* 3. Literature Review Generator (Mode B) */}
         {currentTab === "review" && (
           <LiteratureReviewView
             initialProjectId={activeProjectId}
             onNavigateToAuditor={(projId) => {
               setActiveProjectId(projId);
-              setCurrentTab("auditor");
+              handleNavigate("auditor");
             }}
           />
         )}
 
+        {/* 4. Research Advisor & Blueprints (Example 3 & Publishability) */}
         {currentTab === "advisor" && (
           <ResearchAdvisorView onNavigate={handleNavigate} />
         )}
-
-        {currentTab === "projects" && (
-          <ProjectsView onOpenProject={handleNavigate} />
-        )}
-
-        {currentTab === "sources" && <SavedSourcesView />}
-
-        {currentTab === "export" && <ExportCenterView />}
-
-        {currentTab === "settings" && <SettingsView />}
       </main>
+
+      {/* Slide-over Drawer for Saved Sources (Accessible without taking up a full navbar tab) */}
+      <SavedSourcesDrawer
+        isOpen={showSavedDrawer}
+        onClose={() => setShowSavedDrawer(false)}
+        onUpdateCount={(count) => setSavedCount(count)}
+      />
     </div>
   );
 }

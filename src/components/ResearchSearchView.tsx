@@ -36,6 +36,10 @@ export const ResearchSearchView: React.FC<ResearchSearchViewProps> = ({ onNaviga
   const [followUpLoading, setFollowUpLoading] = useState(false);
   const [chatHistory, setChatHistory] = useState<any[]>([]);
 
+  React.useEffect(() => {
+    handleSearch();
+  }, []);
+
   const handleSearch = async (customQuery?: string) => {
     const q = (customQuery || query).trim();
     if (!q) return;
