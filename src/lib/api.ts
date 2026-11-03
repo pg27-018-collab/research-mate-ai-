@@ -163,7 +163,7 @@ export async function updateIssue(issueId: number, data: { status?: string; cite
   return res.json();
 }
 
-export async function searchScholarly(query: string, startYear = 2020, endYear = 2026, limit = 15): Promise<ScholarlyWork[]> {
+export async function searchScholarly(query: string, startYear = 2020, endYear = 2026, limit = 30): Promise<ScholarlyWork[]> {
   const res = await fetch(`${API_BASE_URL}/api/scholarly/search`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

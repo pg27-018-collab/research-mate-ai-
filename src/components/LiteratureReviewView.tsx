@@ -429,11 +429,11 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
                   <input
                     type="range"
                     min={1}
-                    max={15}
+                    max={30}
                     value={desiredSources}
                     onChange={(e) => setDesiredSources(Number(e.target.value))}
                     className="w-full research-slider"
-                    style={{ background: getSliderTrack(desiredSources, 1, 15) }}
+                    style={{ background: getSliderTrack(desiredSources, 1, 30) }}
                   />
                 </div>
               </div>
