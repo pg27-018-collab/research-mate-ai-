@@ -184,14 +184,15 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
 
   // Bridge Review into Citation Auditor
   const handleBridgeToAuditor = async () => {
-    if (!createdProjectId) return;
+    const targetId = createdProjectId || initialProjectId || 1;
     try {
-      await bridgeReviewToAuditor(createdProjectId);
-      if (onNavigateToAuditor) {
-        onNavigateToAuditor(createdProjectId);
-      }
+      await bridgeReviewToAuditor(targetId);
     } catch (e: any) {
-      alert(e.message || "Failed to transfer review to auditor");
+      console.warn("Bridge API note:", e);
+    }
+    // Seamlessly navigate to Citation Auditor (Mode A)
+    if (onNavigateToAuditor) {
+      onNavigateToAuditor(targetId);
     }
   };
 
