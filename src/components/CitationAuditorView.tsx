@@ -18,7 +18,7 @@ import {
   Filter,
   Check,
   X,
-  Sparkles,
+  FileCheck,
   RefreshCw,
   ArrowRight,
   ShieldCheck,
@@ -727,7 +727,7 @@ export const CitationAuditorView: React.FC<CitationAuditorViewProps> = ({
               {/* Suggested Correction */}
               <div className="space-y-1.5">
                 <span className="text-xs font-bold text-slate-700 flex items-center space-x-1">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                  <FileCheck className="w-3.5 h-3.5 text-amber-600" />
                   <span>Suggested Correction</span>
                 </span>
                 {isEditing ? (

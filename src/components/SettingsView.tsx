@@ -8,7 +8,7 @@ import {
   BookOpen,
   Check,
   ShieldCheck,
-  Sparkles,
+  Cpu,
   Info
 } from "lucide-react";
 
@@ -64,7 +64,7 @@ export const SettingsView: React.FC = () => {
         {/* AI Integration Settings */}
         <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-xs space-y-4">
           <div className="flex items-center space-x-2 border-b border-slate-100 pb-3">
-            <Sparkles className="w-4 h-4 text-blue-600" />
+            <Cpu className="w-4 h-4 text-blue-600" />
             <h2 className="text-sm font-bold text-slate-900">AI Synthesizer & LLM Provider</h2>
           </div>
 

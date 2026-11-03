@@ -4,11 +4,12 @@ import React from "react";
 import {
   FileSearch,
   BookOpen,
-  Sparkles,
+  GraduationCap,
   Search,
   BookmarkCheck,
   ShieldCheck,
-  Layers
+  Layers,
+  Compass
 } from "lucide-react";
 
 interface NavbarProps {
@@ -24,14 +25,14 @@ export const Navbar: React.FC<NavbarProps> = ({
   savedSourcesCount = 0,
   onOpenSavedSources,
 }) => {
-  // Only the 4 essential "new update" workflows requested by the user
+  // Navigation tabs with clean, meaningful icons (no sparkles)
   const navItems = [
     {
-      id: "search",
-      label: "AI Research Search",
-      shortLabel: "AI Search",
-      icon: Search,
-      badge: "Ask AI",
+      id: "review",
+      label: "Literature Review",
+      shortLabel: "Lit Review",
+      icon: BookOpen,
+      badge: "Mode B",
       color: "from-blue-600 to-indigo-600",
     },
     {
@@ -40,37 +41,37 @@ export const Navbar: React.FC<NavbarProps> = ({
       shortLabel: "Auditor",
       icon: FileSearch,
       badge: "Mode A",
-      color: "from-purple-600 to-indigo-600",
+      color: "from-indigo-600 to-purple-600",
     },
     {
-      id: "review",
-      label: "Literature Review",
-      shortLabel: "Lit Review",
-      icon: BookOpen,
-      badge: "Mode B",
-      color: "from-indigo-600 to-blue-600",
+      id: "search",
+      label: "AI Research Search",
+      shortLabel: "AI Search",
+      icon: Search,
+      badge: "Scholarly",
+      color: "from-blue-600 to-cyan-600",
     },
     {
       id: "advisor",
       label: "Publishability AI",
       shortLabel: "Advisor",
-      icon: Sparkles,
+      icon: Compass,
       badge: "Blueprint",
       color: "from-emerald-600 to-teal-600",
     },
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-xs transition-all">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Brand */}
           <div
             className="flex items-center space-x-3 cursor-pointer select-none group"
-            onClick={() => setCurrentTab("search")}
+            onClick={() => setCurrentTab("review")}
           >
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 via-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-              <Sparkles className="w-5 h-5 text-white" />
+              <GraduationCap className="w-5 h-5 text-white" />
             </div>
             <div>
               <div className="flex items-center space-x-2">

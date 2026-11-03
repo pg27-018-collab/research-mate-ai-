@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import {
-  Sparkles,
+  Lightbulb,
   Search,
   CheckCircle2,
   AlertTriangle,
@@ -247,7 +247,7 @@ export const ResearchAdvisorView: React.FC<ResearchAdvisorViewProps> = ({ onNavi
       {/* Header Banner */}
       <div className="bg-gradient-to-r from-blue-950 via-indigo-900 to-slate-900 rounded-2xl p-6 sm:p-8 text-white shadow-md space-y-5">
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-200 border border-blue-400/30 text-xs font-semibold">
-          <Sparkles className="w-3.5 h-3.5 text-blue-300" />
+          <Compass className="w-3.5 h-3.5 text-blue-300" />
           <span>Research Advisor & Scopus Q1 Publication Blueprint</span>
         </div>
 
@@ -361,7 +361,7 @@ export const ResearchAdvisorView: React.FC<ResearchAdvisorViewProps> = ({ onNavi
                 disabled={loading}
                 className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs sm:text-sm font-bold shadow-xs transition flex items-center justify-center space-x-2 shrink-0 self-end sm:self-auto h-full"
               >
-                <Sparkles className="w-4 h-4" />
+                <FileCheck className="w-4 h-4" />
                 <span>{loading ? "Generating Blueprint..." : "Generate Blueprint"}</span>
               </button>
             </div>
@@ -412,7 +412,7 @@ export const ResearchAdvisorView: React.FC<ResearchAdvisorViewProps> = ({ onNavi
                 disabled={loading}
                 className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs sm:text-sm font-bold shadow-xs transition flex items-center justify-center space-x-2 shrink-0"
               >
-                <Sparkles className="w-4 h-4" />
+                <FileCheck className="w-4 h-4" />
                 <span>{loading ? "Analyzing..." : "Evaluate Title"}</span>
               </button>
             </div>

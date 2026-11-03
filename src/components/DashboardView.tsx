@@ -12,7 +12,8 @@ import {
   ArrowRight,
   ShieldCheck,
   Clock,
-  Sparkles,
+  GraduationCap,
+  Compass,
   ExternalLink
 } from "lucide-react";
 import { DashboardStats, fetchDashboardStats, inspectJournalScopus } from "../lib/api";
@@ -65,7 +66,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
       <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 rounded-2xl p-8 text-white shadow-md relative overflow-hidden">
         <div className="relative z-10 max-w-2xl space-y-3">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-semibold text-blue-200 border border-white/10">
-            <Sparkles className="w-3.5 h-3.5 text-blue-300" />
+            <GraduationCap className="w-3.5 h-3.5 text-blue-300" />
             <span>Computer Science &amp; Informetrics Research Suite</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
@@ -101,7 +102,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
               onClick={() => onNavigate("advisor")}
               className="px-4 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-lg text-xs font-bold shadow-sm transition flex items-center space-x-2"
             >
-              <Sparkles className="w-4 h-4 text-emerald-200" />
+              <Compass className="w-4 h-4 text-emerald-200" />
               <span>Publishability & Blueprints</span>
             </button>
           </div>

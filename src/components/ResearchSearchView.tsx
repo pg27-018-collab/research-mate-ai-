@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import {
   Search,
-  Sparkles,
+  GraduationCap,
   BookOpen,
   CheckCircle2,
   AlertCircle,
@@ -187,7 +187,7 @@ export const ResearchSearchView: React.FC<ResearchSearchViewProps> = ({ onNaviga
       {/* Hero Search Box */}
       <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-950 rounded-2xl p-6 sm:p-10 text-white shadow-lg space-y-6">
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-200 border border-blue-400/30 text-xs font-semibold">
-          <Sparkles className="w-3.5 h-3.5 text-blue-300" />
+          <GraduationCap className="w-3.5 h-3.5 text-blue-300" />
           <span>AI Academic Discovery Engine (OpenAlex &amp; Crossref Grounded)</span>
         </div>
 
@@ -217,9 +217,9 @@ export const ResearchSearchView: React.FC<ResearchSearchViewProps> = ({ onNaviga
           <button
             onClick={() => handleSearch()}
             disabled={loading}
-            className="px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-bold shadow-md transition flex items-center justify-center space-x-2 shrink-0"
+            className="px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-bold shadow-md transition flex items-center justify-center space-x-2 shrink-0 cursor-pointer"
           >
-            <Sparkles className="w-4 h-4" />
+            <Search className="w-4 h-4" />
             <span>{loading ? "Searching 250M+ Records..." : "Search Research"}</span>
           </button>
         </div>
@@ -308,7 +308,7 @@ export const ResearchSearchView: React.FC<ResearchSearchViewProps> = ({ onNaviga
             {/* Right: The Research Gaps (Where You Can Publish) */}
             <div className="bg-white rounded-2xl border border-emerald-200 p-6 shadow-xs space-y-4">
               <div className="flex items-center space-x-2 border-b border-emerald-100 pb-3">
-                <Sparkles className="w-5 h-5 text-emerald-600" />
+                <ShieldCheck className="w-5 h-5 text-emerald-600" />
                 <h3 className="text-sm font-bold text-emerald-950">
                   Unresolved Research Gaps (Kahan Aap Paper Publish Kar Sakte Ho)
                 </h3>

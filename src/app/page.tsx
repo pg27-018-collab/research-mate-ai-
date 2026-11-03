@@ -12,8 +12,8 @@ import { SavedSourcesDrawer } from "../components/SavedSourcesDrawer";
 import { fetchSavedSources } from "../lib/api";
 
 export default function Home() {
-  // Default to the flagship new AI Research Search
-  const [currentTab, setCurrentTab] = useState<"search" | "auditor" | "review" | "advisor">("search");
+  // Default to Literature Review (Research Requirements) - the main platform centerpiece
+  const [currentTab, setCurrentTab] = useState<"search" | "auditor" | "review" | "advisor">("review");
   const [activeProjectId, setActiveProjectId] = useState<number | null>(null);
   const [showSavedDrawer, setShowSavedDrawer] = useState(false);
   const [savedCount, setSavedCount] = useState(0);
