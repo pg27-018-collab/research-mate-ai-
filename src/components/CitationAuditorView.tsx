@@ -189,7 +189,7 @@ export const CitationAuditorView: React.FC<CitationAuditorViewProps> = ({
       setEditingCorrection(activeIssue.suggested_correction || "");
       setIsEditing(false);
     }
-  }, [activeIssue]);
+  }, [activeIssue?.id]);
 
   const handleUpdateStatus = async (issueId: number, newStatus: string) => {
     try {
@@ -304,7 +304,7 @@ export const CitationAuditorView: React.FC<CitationAuditorViewProps> = ({
               <span>•</span>
               <span>{projectData.document.page_count} Pages</span>
               <span>•</span>
-              <span>{projectData.document.word_count.toLocaleString()} Words</span>
+              <span>{projectData.document.word_count ? projectData.document.word_count.toLocaleString() : "0"} Words</span>
             </div>
           )}
         </div>

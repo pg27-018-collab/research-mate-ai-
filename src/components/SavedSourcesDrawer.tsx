@@ -40,8 +40,9 @@ export const SavedSourcesDrawer: React.FC<SavedSourcesDrawerProps> = ({
     setLoading(true);
     try {
       const data = await fetchSavedSources();
-      setSources(data);
-      if (onUpdateCount) onUpdateCount(data.length);
+      const list = Array.isArray(data) ? data : [];
+      setSources(list);
+      if (onUpdateCount) onUpdateCount(list.length);
     } catch (e) {
       console.error(e);
     } finally {

@@ -21,8 +21,8 @@ export default function Home() {
   useEffect(() => {
     // Initial fetch of saved sources count
     fetchSavedSources()
-      .then((data) => setSavedCount(data.length))
-      .catch(() => {});
+      .then((data) => setSavedCount(Array.isArray(data) ? data.length : 0))
+      .catch(() => setSavedCount(0));
   }, []);
 
   const handleNavigate = (tab: string, projectId?: number) => {
