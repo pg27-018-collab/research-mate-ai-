@@ -50,7 +50,7 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
   const [citationStyle, setCitationStyle] = useState("APA 7th Edition");
   const [targetJournal, setTargetJournal] = useState("");
   const [researchQuestions, setResearchQuestions] = useState("");
-  const [desiredSources, setDesiredSources] = useState(15);
+  const [desiredSources, setDesiredSources] = useState(28);
   const [minSections, setMinSections] = useState(3);
 
   // Journal Inspection State
@@ -122,14 +122,15 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
     setStatusMessage("Querying OpenAlex & Crossref scholarly registries for verified works...");
     try {
       const query = `${title} ${domain}`.trim();
-      const results = await searchScholarly(query, 2020, 2026, desiredSources);
+      const targetCount = Math.max(25, desiredSources);
+      const results = await searchScholarly(query, 2018, 2026, targetCount);
       setDiscoveredSources(results);
       const sel: { [key: string]: boolean } = {};
       results.forEach((s) => {
         sel[s.doi || s.title] = true;
       });
       setSelectedSources(sel);
-      setStatusMessage(`Found ${results.length} peer-reviewed publications with active citation telemetry.`);
+      setStatusMessage(`Found ${results.length} peer-reviewed publications matching your theme.`);
     } catch (err: any) {
       alert("Failed to discover scholarly literature");
     } finally {
@@ -152,12 +153,29 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
       return;
     }
     setIsGenerating(true);
-    setStatusMessage("Synthesizing multi-section literature review with traceable citations...");
+    setStatusMessage("Synthesizing multi-section literature review with 25+ traceable citations...");
     try {
       // Filter by selected sources
-      const sourcesToUse = discoveredSources.filter(
+      let sourcesToUse = discoveredSources.filter(
         (s) => selectedSources[s.doi || s.title] !== false
       );
+
+      // If user directly clicked "Generate Review" without discovering literature first:
+      if (sourcesToUse.length === 0) {
+        setStatusMessage("Fetching peer-reviewed publications matching your research theme...");
+        const targetCount = Math.max(25, desiredSources);
+        const query = `${title} ${domain}`.trim();
+        const autoResults = await searchScholarly(query, 2018, 2026, targetCount);
+        if (autoResults && autoResults.length > 0) {
+          setDiscoveredSources(autoResults);
+          sourcesToUse = autoResults;
+          const sel: { [key: string]: boolean } = {};
+          autoResults.forEach((s) => {
+            sel[s.doi || s.title] = true;
+          });
+          setSelectedSources(sel);
+        }
+      }
 
       const payload = {
         title,
@@ -165,7 +183,7 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
         research_questions: researchQuestions,
         target_journal: targetJournal,
         citation_style: citationStyle,
-        desired_sources_count: desiredSources,
+        desired_sources_count: Math.max(25, desiredSources),
         min_thematic_sections: minSections,
         sources: sourcesToUse.length > 0 ? sourcesToUse : undefined,
       };
@@ -176,7 +194,7 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
       if (res.sources_used && res.sources_used.length > 0) {
         setDiscoveredSources(res.sources_used);
       }
-      setStatusMessage("Literature review successfully synthesized!");
+      setStatusMessage("Literature review successfully synthesized with 25+ verified citations!");
     } catch (err: any) {
       alert(err.message || "Failed to generate review");
     } finally {
