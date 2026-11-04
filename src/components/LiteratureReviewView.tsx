@@ -44,17 +44,13 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
   initialProjectId,
   onNavigateToAuditor,
 }) => {
-  // Form State - Defaults matching the attachment exact specification
-  const [title, setTitle] = useState(
-    "Empirical Evaluation of Automated Citation Auditing and Scholarly Verification"
-  );
-  const [domain, setDomain] = useState("Computer Science & Informetrics");
+  // Form State - Empty by default so user provides their own topic
+  const [title, setTitle] = useState("");
+  const [domain, setDomain] = useState("");
   const [citationStyle, setCitationStyle] = useState("APA 7th Edition");
-  const [targetJournal, setTargetJournal] = useState("Journal of Informetrics");
-  const [researchQuestions, setResearchQuestions] = useState(
-    "How do automated citation verification engines compare against manual bibliometric auditing in terms of precision, recall, and false positive rates?"
-  );
-  const [desiredSources, setDesiredSources] = useState(6);
+  const [targetJournal, setTargetJournal] = useState("");
+  const [researchQuestions, setResearchQuestions] = useState("");
+  const [desiredSources, setDesiredSources] = useState(15);
   const [minSections, setMinSections] = useState(3);
 
   // Journal Inspection State
@@ -73,12 +69,12 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
   const [statusMessage, setStatusMessage] = useState("");
   const [copiedReview, setCopiedReview] = useState(false);
 
-  // Initial load
+  // Initial load: Only load if a specific project was selected from the Projects list
   useEffect(() => {
-    const loadDefaultReview = async () => {
+    if (!initialProjectId) return;
+    const loadSelectedProject = async () => {
       try {
-        const targetId = initialProjectId || 2;
-        const data = await fetchProjectDetails(targetId);
+        const data = await fetchProjectDetails(initialProjectId);
         if (data && data.review) {
           setGeneratedReview(data.review);
           setCreatedProjectId(data.id);
@@ -98,7 +94,7 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
         // Fallback gracefully
       }
     };
-    loadDefaultReview();
+    loadSelectedProject();
   }, [initialProjectId]);
 
   // Inspect Journal
@@ -118,7 +114,10 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
 
   // Discover Literature
   const handleDiscoverSources = async () => {
-    if (!title.trim()) return;
+    if (!title.trim()) {
+      setStatusMessage("Please enter your research topic or paper title first.");
+      return;
+    }
     setIsDiscovering(true);
     setStatusMessage("Querying OpenAlex & Crossref scholarly registries for verified works...");
     try {
@@ -148,7 +147,10 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
 
   // Generate Review
   const handleGenerateReview = async () => {
-    if (!title.trim()) return;
+    if (!title.trim()) {
+      setStatusMessage("Please enter your research topic or paper title first.");
+      return;
+    }
     setIsGenerating(true);
     setStatusMessage("Synthesizing multi-section literature review with traceable citations...");
     try {
@@ -778,9 +780,9 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
               <div className="w-14 h-14 mx-auto rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-500">
                 <BookOpenCheck className="w-7 h-7" />
               </div>
-              <h3 className="text-sm font-semibold text-slate-800">No Review Synthesized Yet</h3>
+              <h3 className="text-sm font-semibold text-slate-800">Ready for Your Research Topic</h3>
               <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
-                Your research parameters are configured on the left. Click <strong>1. Discover Literature</strong> to fetch contemporary peer-reviewed papers, then click <strong>2. Generate Review</strong> to create your structured review.
+                Enter your custom research topic and requirements on the left, then click <strong>1. Discover Literature</strong> to fetch real indexed publications, and <strong>2. Generate Review</strong> to synthesize your multi-section literature review with 25+ traceable citations.
               </p>
             </div>
           )}

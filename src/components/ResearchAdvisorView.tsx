@@ -144,16 +144,12 @@ export const ResearchAdvisorView: React.FC<ResearchAdvisorViewProps> = ({ onNavi
   // Mode selection: 'dataset' (Example 3), 'topic' (Example 2), 'auditor' (Example 1)
   const [activeMode, setActiveMode] = useState<"dataset" | "topic" | "auditor">("dataset");
 
-  // Query states
-  const [datasetQuery, setDatasetQuery] = useState(
-    "I have a benchmark corpus of 50,000 peer-reviewed Computer Science & Informetrics manuscripts from 2020 to 2026 with 1.2M citation pairs and ground-truth reference auditing annotations. Suggest empirical evaluation techniques (precision/recall/F1, human-algorithmic agreement, confusion matrix), correlation parameters (PDF layout complexity, OCR noise, style variance), and ready-to-publish paper blueprints for Journal of Informetrics or Scientometrics."
-  );
-  const [topicQuery, setTopicQuery] = useState(
-    "Empirical Evaluation of Automated Citation Auditing and Scholarly Verification in Computer Science & Informetrics"
-  );
+  // Query states - Empty by default
+  const [datasetQuery, setDatasetQuery] = useState("");
+  const [topicQuery, setTopicQuery] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any>(DEFAULT_ADVISOR_RESULT);
+  const [result, setResult] = useState<any>(null);
 
   // Follow up questions
   const [queryInput, setQueryInput] = useState("");
@@ -163,8 +159,11 @@ export const ResearchAdvisorView: React.FC<ResearchAdvisorViewProps> = ({ onNavi
   // Trigger evaluation
   const handleEvaluate = async (customQuery?: string, customType?: "dataset_blueprint" | "topic_evaluation") => {
     const isDataset = (customType ? customType === "dataset_blueprint" : activeMode === "dataset");
-    const query = customQuery || (isDataset ? datasetQuery : topicQuery);
-    if (!query.trim()) return;
+    const query = customQuery !== undefined ? customQuery : (isDataset ? datasetQuery : topicQuery);
+    if (!query.trim()) {
+      alert("Please enter your research topic or describe your dataset first.");
+      return;
+    }
 
     setLoading(true);
     setConversations([]);

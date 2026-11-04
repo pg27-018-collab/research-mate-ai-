@@ -92,11 +92,9 @@ const DEFAULT_SEARCH_RESULT = {
 };
 
 export const ResearchSearchView: React.FC<ResearchSearchViewProps> = ({ onNavigate }) => {
-  const [query, setQuery] = useState(
-    "Kya is topic pr research work hai: Empirical evaluation of automated citation auditing engines vs manual proofreading in Journal of Informetrics?"
-  );
+  const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
-  const [searchResult, setSearchResult] = useState<any>(DEFAULT_SEARCH_RESULT);
+  const [searchResult, setSearchResult] = useState<any>(null);
 
   // Follow-up interaction
   const [followUpInput, setFollowUpInput] = useState("");
@@ -104,8 +102,11 @@ export const ResearchSearchView: React.FC<ResearchSearchViewProps> = ({ onNaviga
   const [chatHistory, setChatHistory] = useState<any[]>([]);
 
   const handleSearch = async (customQuery?: string) => {
-    const q = (customQuery || query).trim();
-    if (!q) return;
+    const q = (customQuery !== undefined ? customQuery : query).trim();
+    if (!q) {
+      alert("Please enter a research problem or topic first.");
+      return;
+    }
 
     setLoading(true);
     setChatHistory([]);
