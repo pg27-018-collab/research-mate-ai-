@@ -644,23 +644,37 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
 
               {/* Thematic Sections */}
               <div className="space-y-6">
-                {generatedReview.sections.map((section, idx) => (
-                  <div key={idx} className="space-y-2.5">
-                    <div className="flex items-center justify-between border-b border-slate-100 pb-1.5">
-                      <h3 className="text-sm sm:text-base font-bold text-slate-900">
-                        {section.section_number || idx + 1}. {section.title}
-                      </h3>
-                      {section.sources_cited && section.sources_cited.length > 0 && (
-                        <span className="text-[10px] text-blue-700 font-semibold bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
-                          {section.sources_cited.length} source{section.sources_cited.length > 1 ? "s" : ""} synthesized
-                        </span>
-                      )}
+                {generatedReview.sections.map((section, idx) => {
+                  const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
+                  const roman = romanNumerals[idx] || `${idx + 1}`;
+                  const cleanTitle = (section.title || "")
+                    .replace(/^(Section\s+[IVXLCDM\d]+[:.\s-]*|\d+[:.\s-]*)/i, "")
+                    .trim();
+                  const paragraphs = (section.content || "")
+                    .split(/\n\n+/)
+                    .map((p) => p.trim())
+                    .filter(Boolean);
+
+                  return (
+                    <div
+                      key={idx}
+                      className="bg-slate-50/60 rounded-2xl p-5 sm:p-6 border border-slate-200/80 space-y-3.5 shadow-2xs"
+                    >
+                      <div className="border-b border-slate-200/90 pb-2">
+                        <h3 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight">
+                          Section {roman}: {cleanTitle}
+                        </h3>
+                      </div>
+                      <div className="space-y-3 text-slate-800 text-xs sm:text-[13.5px] leading-relaxed">
+                        {paragraphs.map((para, pIdx) => (
+                          <p key={pIdx} className="leading-relaxed">
+                            {para}
+                          </p>
+                        ))}
+                      </div>
                     </div>
-                    <div className="text-slate-800 text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">
-                      {section.content}
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Identified Research Gaps Section */}
@@ -693,7 +707,7 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
               )}
 
               {/* Reference List */}
-              <div className="border-t border-slate-200 pt-6 space-y-3">
+              <div className="border-t border-slate-200 pt-6 space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm sm:text-base font-bold text-slate-900">
                     References ({generatedReview.references.length})
@@ -702,12 +716,40 @@ export const LiteratureReviewView: React.FC<LiteratureReviewViewProps> = ({
                     Formatted in {generatedReview.citation_style}
                   </span>
                 </div>
-                <div className="space-y-2.5 text-xs text-slate-800 leading-relaxed">
-                  {generatedReview.references.map((refStr, rIdx) => (
-                    <div key={rIdx} className="pl-6 -indent-6 bg-slate-50/50 p-2 rounded-lg border border-slate-100">
-                      {refStr}
-                    </div>
-                  ))}
+                <div className="space-y-2 text-xs text-slate-800 leading-relaxed divide-y divide-slate-100">
+                  {generatedReview.references.map((refStr, rIdx) => {
+                    const numberMatch = refStr.match(/^(\[\d+\]|\d+\.)\s*(.*)$/);
+                    const prefixNumber = numberMatch ? numberMatch[1] : `${rIdx + 1}.`;
+                    const textBody = numberMatch ? numberMatch[2] : refStr;
+                    const urlRegex = /(https?:\/\/(?:dx\.)?doi\.org\/[^\s]+|https?:\/\/[^\s]+)/gi;
+                    const parts = textBody.split(urlRegex);
+
+                    return (
+                      <div key={rIdx} className="pt-2.5 pb-2 flex items-start space-x-3">
+                        <span className="font-semibold text-slate-500 shrink-0 min-w-[28px] select-none text-[12px]">
+                          {prefixNumber}
+                        </span>
+                        <div className="flex-1 break-words text-slate-800 leading-relaxed font-sans text-xs sm:text-[13px]">
+                          {parts.map((part, pIdx) => {
+                            if (part && part.match(/^https?:\/\//i)) {
+                              return (
+                                <a
+                                  key={pIdx}
+                                  href={part}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600 hover:text-blue-800 underline underline-offset-2 break-all font-medium transition-colors ml-1"
+                                >
+                                  {part}
+                                </a>
+                              );
+                            }
+                            return <span key={pIdx}>{part}</span>;
+                          })}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
